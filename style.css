@@ -1,0 +1,163 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #1e3c72, #ff4b5c);
+  color: white;
+}
+
+/* SIDEBAR (PC) */
+.sidebar {
+  width: 220px;
+  background: #162447;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  display: flex;
+  font-weight: bold;  
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #e43f5a;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  background: #ff5c74;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* SEARCH */
+.search {
+  flex: 1;
+  display: flex;
+}
+
+.search input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  outline: none;
+}
+
+.search button {
+  padding: 10px;
+  border: none;
+  background: #e43f5a;
+  color: white;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+}
+
+/* INFO */
+.info {
+  background: #1e90ff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* CARD */
+.card {
+  background: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  color: black;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+/* 📱 RESPONSIVO */
+@media (max-width: 768px){
+
+  body {
+    flex-direction: column;
+  }
+
+  /* SIDEBAR VIRA MENU INFERIOR */
+  .sidebar {
+    order: 2;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar a {
+    flex-direction: column;
+    font-size: 12px;
+    padding: 5px;
+    background: transparent;
+  }
+
+  .sidebar span {
+    font-size: 10px;
+  }
+
+  /* MAIN */
+  .main {
+    order: 1;
+    padding: 15px;
+  }
+
+  /* HEADER */
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .info {
+    align-self: flex-end;
+  }
+
+  /* CARD */
+  .card {
+    font-size: 15px;
+    padding: 15px;
+  }
+}
+.sidebar :hover {
+  scale: 1.2;
+}
