@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +14,11 @@
 
   <div class="sidebar">
     <h2> Nós...</h2>
-    <a href="#">❤️ <span>História</span></a>
     <a href="galery.html">📸 <span>Galeria</span></a>
-    <a href="#">💬 <span>Notas</span></a> 
+    <a href="#">❤️ <span>História</span></a>
+
+    <a href="#">💬 <span>Notas</span></a>
+    <a href="info.html"> ℹ️ <span>Informações</span></a>
   </div>
 
   <div class="main">
@@ -26,12 +29,14 @@
         <button>🔍</button>
       </div>
 
-      <div class="info" onclick="mostrarInfo()">i</div>
-    </div>
 
-    <div class="card">
-      <h2>Frase do Dia</h2>
-      <p id="frase"></p>
+    </div>
+    <div class="carta" onclick="abrirCarta()">
+      <div class="frente">💌 Abrir Carta</div>
+      <div class="dentro">
+        <p id="mensagemCarta"></p>
+        <span id="pontosCarta"></span>
+      </div>
     </div>
 
   </div>
@@ -39,4 +44,5 @@
   <!-- IMPORTANDO JS -->
   <script src="script.js"></script>
 </body>
+
 </html>

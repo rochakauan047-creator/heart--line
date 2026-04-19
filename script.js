@@ -27,7 +27,11 @@ function mostrarInfo() {
 }
 
 // roda quando carregar
-window.onload = atualizarFrase;
+window.onload = () => {
+  atualizarFrase();
+  carregar();
+  carregarUsuario();
+};
 async function upload() {
   const file = document.getElementById("fileInput").files[0];
   const nome = document.getElementById("nomeInput").value;
@@ -80,7 +84,45 @@ async function carregar() {
     `;
   });
 }
+function abrirCarta() {
+  const carta = document.querySelector(".carta");
 
+  // evita ganhar várias vezes no mesmo dia
+  const hoje = new Date().toDateString();
+  const ultimo = localStorage.getItem("ultimaCarta");
+
+  if (carta.classList.contains("aberta")) return;
+
+  carta.classList.add("aberta");
+
+  const mensagens = [
+    "Você é meu mundo 💖",
+    "Te amo mais que tudo ❤️",
+    "Você é minha felicidade ✨",
+    "Meu coração é seu 💫",
+    "Sempre você 💕"
+  ];
+
+  // mensagem aleatória
+  const msg = mensagens[Math.floor(Math.random() * mensagens.length)];
+
+  // pontos aleatórios (5 a 15)
+  let pontosGanhos = 0;
+
+  if (hoje !== ultimo) {
+    pontosGanhos = Math.floor(Math.random() * 11) + 5;
+
+    let pontos = parseInt(localStorage.getItem("pontos")) || 0;
+    pontos += pontosGanhos;
+
+    localStorage.setItem("pontos", pontos);
+    localStorage.setItem("ultimaCarta", hoje);
+  }
+
+  document.getElementById("mensagemCarta").innerText = msg;
+  document.getElementById("pontosCarta").innerText =
+    pontosGanhos > 0 ? `+${pontosGanhos} pontos 💖` : "Já abriu hoje 😏";
+}
 carregar();
 db.ref("Galeria").on("value", snapshot => {
   const dados = snapshot.val();
@@ -136,4 +178,48 @@ function abrirModal(img) {
 }
 function fecharModal() {
   document.getElementById("modal").style.display = "none";
+}
+//LOGIN CADASTRO//
+
+function cadastrar() {
+  const nome = document.getElementById("nome").value;
+  const senha = document.getElementById("senha").value;
+
+  if (!nome || !senha) {
+    alert("Preenche tudo!");
+    return;
+  }
+
+  localStorage.setItem("usuario", nome);
+  localStorage.setItem("senha", senha);
+
+  alert("Cadastrado!");
+}
+
+function login() {
+  const nome = document.getElementById("nome").value;
+  const senha = document.getElementById("senha").value;
+
+  const userSalvo = localStorage.getItem("usuario");
+  const senhaSalva = localStorage.getItem("senha");
+
+  if (nome === userSalvo && senha === senhaSalva) {
+    alert("Entrou 💖");
+    window.location.href = "home.html";
+  } else {
+    alert("Erro no login");
+  }
+}
+const usuario = localStorage.getItem("usuario");
+
+
+function carregarUsuario() {
+  const nome = localStorage.getItem("usuario");
+  const pontos = localStorage.getItem("pontos") || 0;
+
+  const elUser = document.getElementById("usuario");
+  const elPontos = document.getElementById("pontos");
+
+  if (elUser) elUser.innerText = nome || "Sem nome";
+  if (elPontos) elPontos.innerText = pontos;
 }
