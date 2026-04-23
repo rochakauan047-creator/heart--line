@@ -1,3 +1,4 @@
+
 function atualizarFrase() {
   const frases = [
     "Você é meu sonho realizado 💖",

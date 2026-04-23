@@ -1,0 +1,173 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(#1e3c72, #ff4b5c);
+  color: white;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #162447;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+      transition: 0.5s;
+}
+
+.sidebar h2 {
+  text-align: center;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #e43f5a;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  
+}
+
+.sidebar a:hover {
+  background: #ff5c74;
+    transition: 0.5s;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* SEARCH */
+.search-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#input-busca {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* LOJA GRID */
+#lista-presentes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+
+}
+
+/* CARD */
+.shop-item {
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #e43f5a;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.shop-item:hover {
+  transform: translateY(-5px);
+}
+
+/* IMG */
+.shop-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* INPUT DATA */
+.input-data-compra {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* BOTÃO */
+.btn-comprar {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #27ae60;
+  color: white;
+}
+
+.btn-comprar:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* AGENDA */
+.secao-agenda {
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.agenda-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agenda-card {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.loja-container :hover{
+
+}
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar a {
+    flex-direction: column;
+    font-size: 12px;
+    background: transparent;
+  }
+}
