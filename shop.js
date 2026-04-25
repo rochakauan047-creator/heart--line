@@ -7,7 +7,7 @@ emailjs.init(PUBLIC_KEY);
 
 // LISTA DE PRESENTES
 const presentes = [
-    { id: 1, nome: "Vale Jantar", preco: 1, img: "https://cdn-icons-png.flaticon.com/512/3448/3448651.png" },
+    { id: 1, nome: "Vale Jantar", preco: 80, img: "https://cdn-icons-png.flaticon.com/512/3448/3448651.png" },
     { id: 2, nome: "Massagem 30min", preco: 80, img: "https://cdn-icons-png.flaticon.com/512/103/103956.png" },
     { id: 3, nome: "Noite de Cinema", preco: 30, img: "https://cdn-icons-png.flaticon.com/512/2503/2503508.png" },
     { id: 4, nome: "Café na Cama", preco: 40, img: "https://cdn-icons-png.flaticon.com/512/3204/3204340.png" },
@@ -20,9 +20,9 @@ const presentes = [
     { id: 11, nome: "Perdão Teimosia", preco: 100, img: "https://cdn-icons-png.flaticon.com/512/1029/1029183.png" },
     { id: 12, nome: "Cozinhar p/ Ela", preco: 70, img: "https://cdn-icons-png.flaticon.com/512/1830/1830839.png" },
     { id: 13, nome: "Skincare Casal", preco: 20, img: "https://cdn-icons-png.flaticon.com/512/3204/3204000.png" },
-    { id: 14, nome: "Escolher Viagem", preco: 300, img: "https://cdn-icons-png.flaticon.com/512/201/201623.png" },
+    { id: 14, nome: " Viagem", preco: 300, img: "https://cdn-icons-png.flaticon.com/512/201/201623.png" },
     { id: 15, nome: "Ver Pôr do Sol", preco: 45, img: "https://cdn-icons-png.flaticon.com/512/2924/2924483.png" },
-    { id: 16, nome: "Dormir Conchinha", preco: 15, img: "https://cdn-icons-png.flaticon.com/512/3094/3094595.png" },
+    { id: 16, nome: "Saida surpresa", preco: 60, img: "https://cdn-icons-png.flaticon.com/512/3094/3094595.png" },
     { id: 17, nome: "Noite de Jogos", preco: 40, img: "https://cdn-icons-png.flaticon.com/512/3035/3035695.png" },
     { id: 18, nome: "Jantar VIP", preco: 500, img: "https://cdn-icons-png.flaticon.com/512/3163/3163181.png" }
 ];
