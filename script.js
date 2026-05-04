@@ -40,7 +40,8 @@ try {
   await setDoc(doc(db, "users", userCred.user.uid), {
     nome,
     email,
-    pontos: 0
+  pontos: 0,
+pontosTotal: 0
   });
 
   mostrarMsg("Cadastro feito 💖 agora faz login!");

@@ -1,62 +1,69 @@
-// 🔒 PROTEGER PÁGINA
-const usuario = localStorage.getItem("usuario");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
 
-if (!usuario) {
-  window.location.href = "index.html";
-}
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
-// CARREGAR DADOS
-function carregarUsuario() {
-  const nome = localStorage.getItem("usuario");
-  const pontos = parseInt(localStorage.getItem("pontos")) || 0;
+// 🔥 CONFIG (mesma do teu login)
+const firebaseConfig = {
+  apiKey: "AIzaSyBGWMOLsTvJf5kAMaP8uRWwmDn4Lb1dzNw",
+  authDomain: "line-heart-bnc.firebaseapp.com",
+  projectId: "line-heart-bnc"
+};
 
-  document.getElementById("usuario").innerText = nome;
-  document.getElementById("pontos").innerText = pontos;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-  calcularNivel(pontos);
-}
-// GANHAR PONTO (1x por dia)
-function ganharPonto() {
-  const hoje = new Date().toDateString();
-  const ultimo = localStorage.getItem("ultimoDia");
-
-  if (hoje !== ultimo) {
-    let pontos = parseInt(localStorage.getItem("pontos")) || 0;
-
-    pontos += 10;
-
-    localStorage.setItem("pontos", pontos);
-    localStorage.setItem("ultimoDia", hoje);
-
-    alert("+10 pontos 💖");
-  } else {
-    alert("Já ganhou hoje 😏");
+// ================= CARREGAR INFO =================
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
   }
 
-  carregarUsuario();
+  const snap = await getDoc(doc(db, "users", user.uid));
+
+  if (snap.exists()) {
+    const dados = snap.data();
+
+    document.getElementById("nome").innerText = dados.nome;
+    document.getElementById("email").innerText = dados.email;
+    document.getElementById("pontos").innerText = dados.pontos ?? 0;
+
+    const rank = calcularRank(dados.pontosTotal ?? 0);
+    document.getElementById("rank").innerText = rank;
+  }
+});
+//CONTADOR
+function calcularRank(pontosTotal) {
+  if (pontosTotal < 50) return "Iniciante";
+  if (pontosTotal < 150) return "Aprendiz";
+  if (pontosTotal < 300) return "Guerreiro";
+  if (pontosTotal < 600) return "Veterano";
+  if (pontosTotal < 1000) return "Elite";
+  if (pontosTotal < 2000) return "Lendário";
+  return "Indelével ";
 }
-
-//  NÍVEL DO AMOR
-function calcularNivel(pontos) {
-  let msg = "";
-
-  if (pontos < 50) msg = "Início do nosso amor 💕";
-  else if (pontos < 100) msg = "Amor crescendo 🌱";
-  else if (pontos < 200) msg = "Apaixonados 💖";
-  else msg = "Amor infinito 💀💘";
-
-  document.getElementById("mensagem").innerText = msg;
-}
-
-// SAIR
-function sair() {
-  localStorage.removeItem("usuario");
-  localStorage.removeItem("senha");
+// ================= LOGOUT =================
+window.logout = async () => {
+  await signOut(auth);
+  window.location.href = "login.html";
+};
+window.voltar = () => {
   window.location.href = "home.html";
-}
-//VOLTAR
-function voltar() {
-  window.history.back();
-}
-// INICIAR
-window.onload = carregarUsuario;
+};
+window.abrirRanks = () => {
+  document.getElementById("rankModal").style.display = "flex";
+};
+
+window.fecharRanks = () => {
+  document.getElementById("rankModal").style.display = "none";
+};
