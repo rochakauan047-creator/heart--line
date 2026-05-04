@@ -1,11 +1,38 @@
-// CONFIG EMAILJS
-const SERVICE_ID = "service_8zanncr"; 
+// 🔥 FIREBASE (UMA VEZ SÓ)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  updateDoc,
+  increment
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+// 🔥 CONFIG REAL (USA A TUA)
+const firebaseConfig = {
+  apiKey: "AIzaSyBGWMOLsTvJf5kAMaP8uRWwmDn4Lb1dzNw",
+  authDomain: "line-heart-bnc.firebaseapp.com",
+  projectId: "line-heart-bnc"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ================= EMAIL =================
+const SERVICE_ID = "service_8zanncr";
 const TEMPLATE_ID = "template_sgxagw8";
 const PUBLIC_KEY = "qP-YfzGvuCz9-yPIn";
 
 emailjs.init(PUBLIC_KEY);
 
-// LISTA DE PRESENTES
+// ================= ITENS =================
 const presentes = [
     { id: 1, nome: "Vale Jantar", preco: 80, img: "https://cdn-icons-png.flaticon.com/512/3448/3448651.png" },
     { id: 2, nome: "Massagem 30min", preco: 80, img: "https://cdn-icons-png.flaticon.com/512/103/103956.png" },
@@ -27,131 +54,158 @@ const presentes = [
     { id: 18, nome: "Jantar VIP", preco: 500, img: "https://cdn-icons-png.flaticon.com/512/3163/3163181.png" }
 ];
 
-// CARREGAR LOJA
-function carregarLoja() {
-    const container = document.getElementById("lista-presentes");
-    const pontos = parseInt(localStorage.getItem("pontos")) || 0;
+// ================= USUÁRIO GLOBAL =================
+let usuarioAtual = null;
 
-    document.getElementById("loja-pontos").innerText = pontos;
-    container.innerHTML = "";
+// ================= CARREGAR LOJA =================
+async function carregarLoja() {
+  const container = document.getElementById("lista-presentes");
 
-    presentes.forEach(item => {
-        const podeComprar = pontos >= item.preco;
+  if (!usuarioAtual) {
+    container.innerHTML = "<p>Faz login primeiro 😢</p>";
+    return;
+  }
 
-        container.innerHTML += `
-            <div class="shop-item">
-                <img src="${item.img}">
-                <h4>${item.nome}</h4>
-                <p>${item.preco} Pontos</p>
+  const snap = await getDoc(doc(db, "users", usuarioAtual.uid));
+  const dados = snap.data();
 
-                <input type="date" id="data-${item.id}" class="input-data-compra">
+  const pontos = dados.pontos;
 
-                <button onclick="comprarItem(${item.id})" class="btn-comprar" ${podeComprar ? "" : "disabled"}>
-                    ${podeComprar ? "Agendar 🎁" : "Insuficiente"}
-                </button>
-            </div>
-        `;
-    });
+  document.getElementById("loja-pontos").innerText = pontos;
+  container.innerHTML = "";
+
+  presentes.forEach(item => {
+    const podeComprar = pontos >= item.preco;
+    
+container.innerHTML += `
+  <div class="shop-item">
+    <img src="${item.img}">
+    <h4>${item.nome}</h4>
+    <p>${item.preco} Pontos</p>
+
+    <input type="date" id="data-${item.id}" class="input-data">
+
+    <button 
+      class="compra"
+      onclick="abrirModal(${item.id})"
+      ${podeComprar ? "" : "disabled"}
+    >
+      ${podeComprar ? "Comprar 🎁" : "Insuficiente"}
+    </button>
+  </div>
+`;
+  });
 }
 
-// COMPRAR ITEM
+// ================= COMPRAR =================
 async function comprarItem(id) {
-    const item = presentes.find(p => p.id === id);
-    const data = document.getElementById(`data-${id}`).value;
-    let pontos = parseInt(localStorage.getItem("pontos")) || 0;
-    const usuario = localStorage.getItem("usuario") || "Sua Namorada";
+  const item = presentes.find(p => p.id === id);
+  const data = document.getElementById(`data-${id}`).value;
 
-    if (!data) {
-        alert("Escolhe uma data primeiro 📅");
-        return;
-    }
+  if (!usuarioAtual) return alert("Faz login!");
 
-    if (pontos >= item.preco) {
-        try {
-            await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-                from_name: usuario,
-                item_comprado: `${item.nome} (${data})`
-            });
+  if (!data) {
+    alert("Escolhe uma data 📅");
+    return;
+  }
 
-            pontos -= item.preco;
-            localStorage.setItem("pontos", pontos);
+  const ref = doc(db, "users", usuarioAtual.uid);
+  const snap = await getDoc(ref);
+  const dados = snap.data();
 
-            salvarNaAgenda(item.nome, data);
+  if (dados.pontos < item.preco) {
+    alert("Sem pontos 😢");
+    return;
+  }
 
-            alert("Agendado com sucesso ❤️");
-
-            carregarLoja();
-            carregarAgenda();
-        } catch (err) {
-            alert("Erro ao enviar e-mail");
-        }
-    }
-}
-
-// SALVAR NA AGENDA
-function salvarNaAgenda(nome, data) {
-    let agenda = JSON.parse(localStorage.getItem("agenda")) || [];
-
-    agenda.push({
-        id: Date.now(),
-        nome,
-        data
+  try {
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+      from_name: dados.nome,
+      item_comprado: `${item.nome} (${data})`
     });
 
-    localStorage.setItem("agenda", JSON.stringify(agenda));
-}
-
-// CARREGAR AGENDA
-function carregarAgenda() {
-    const container = document.getElementById("agenda-resgates");
-    let agenda = JSON.parse(localStorage.getItem("agenda")) || [];
-
-    if (agenda.length === 0) {
-        container.innerHTML = "<p>Nenhum agendamento ainda 👀</p>";
-        return;
-    }
-
-    agenda.sort((a, b) => new Date(a.data) - new Date(b.data));
-
-    container.innerHTML = "";
-
-    agenda.forEach(item => {
-        const dataBR = new Date(item.data).toLocaleDateString('pt-BR');
-
-        container.innerHTML += `
-            <div class="agenda-card">
-                <div class="agenda-info">
-                    <strong>${item.nome}</strong>
-                    <span>📅 ${dataBR}</span>
-                </div>
-                <button onclick="removerDaAgenda(${item.id})" class="btn-check">✓</button>
-            </div>
-        `;
+    await updateDoc(ref, {
+      pontos: increment(-item.preco)
     });
-}
 
-// REMOVER
-function removerDaAgenda(id) {
-    let agenda = JSON.parse(localStorage.getItem("agenda")) || [];
-    agenda = agenda.filter(item => item.id !== id);
+    salvarNaAgenda(item.nome, data);
 
-    localStorage.setItem("agenda", JSON.stringify(agenda));
-    carregarAgenda();
-}
+    alert("Comprado ❤️");
 
-// BUSCA
-function filtrarLoja() {
-    const termo = document.getElementById("input-busca").value.toLowerCase();
-    const itens = document.querySelectorAll(".shop-item");
-
-    itens.forEach(item => {
-        const nome = item.querySelector("h4").innerText.toLowerCase();
-        item.style.display = nome.includes(termo) ? "block" : "none";
-    });
-}
-
-// INIT
-window.addEventListener("load", () => {
     carregarLoja();
     carregarAgenda();
+
+  } catch (err) {
+    alert("Erro no email");
+  }
+}
+
+// ================= AGENDA =================
+function salvarNaAgenda(nome, data) {
+  let agenda = JSON.parse(localStorage.getItem("agenda")) || [];
+
+  agenda.push({
+    id: Date.now(),
+    nome,
+    data
+  });
+
+  localStorage.setItem("agenda", JSON.stringify(agenda));
+}
+
+function carregarAgenda() {
+  const container = document.getElementById("agenda-resgates");
+  let agenda = JSON.parse(localStorage.getItem("agenda")) || [];
+
+  if (agenda.length === 0) {
+    container.innerHTML = "<p>Nenhum agendamento ainda 👀</p>";
+    return;
+  }
+
+  container.innerHTML = "";
+
+  agenda.forEach(item => {
+    const dataBR = new Date(item.data).toLocaleDateString('pt-BR');
+
+    container.innerHTML += `
+      <div class="agenda-card">
+        <strong>${item.nome}</strong>
+        <span>📅 ${dataBR}</span>
+        <button onclick="removerDaAgenda(${item.id})">✓</button>
+      </div>
+    `;
+  });
+}
+function filtrarLoja() {
+  const termo = document.getElementById("input-busca").value.toLowerCase();
+  const itens = document.querySelectorAll(".shop-item");
+
+  itens.forEach(item => {
+    const nome = item.querySelector("h4").innerText.toLowerCase();
+    item.style.display = nome.includes(termo) ? "block" : "none";
+  });
+}
+
+function removerDaAgenda(id) {
+  let agenda = JSON.parse(localStorage.getItem("agenda")) || [];
+  agenda = agenda.filter(item => item.id !== id);
+
+  localStorage.setItem("agenda", JSON.stringify(agenda));
+  carregarAgenda();
+}
+
+// ================= INIT =================
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    usuarioAtual = user;
+    carregarLoja();
+    carregarAgenda();
+  } else {
+    document.getElementById("lista-presentes").innerHTML = "<p>Faça login 😢</p>";
+  }
 });
+
+// ================= GLOBAL =================
+window.comprarItem = comprarItem;
+window.removerDaAgenda = removerDaAgenda;
+window.filtrarLoja = filtrarLoja;
