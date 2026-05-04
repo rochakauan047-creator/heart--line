@@ -237,3 +237,49 @@ body {
 .sidebar :hover {
   scale: 1.2;
 }
+
+
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.contador {
+    font-size: 1.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+.contador-container {
+            text-align: center;
+              background: #e43f5a;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            font-family: Verdana, Geneva, Tahoma, sans-serif
+        }
+
+        h2 { color: #000000; margin-bottom: 20px; }
+
+        .tempo {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .unidade {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            color: rgb(255, 255, 255);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .numero { font-size: 2rem; }
+        .label { font-size: 0.8rem; text-transform: uppercase; opacity: 0.8; }
