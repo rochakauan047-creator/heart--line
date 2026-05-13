@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor 💖</title>
+    <link rel="stylesheet" href="shop.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2> Nós...</h2> <a href="home.html">🏠 <span>Início</span></a> <a href="galery.html">📸
+            <span>Galeria</span></a> <a href="notas.html">💬 <span>Notas</span></a> <a href="info.html"> ℹ️
+            <span>Informações</span></a>
+    </div>
+    <div class="main">
+        <div class="shop-header">
+            <h3>Sua Pontuação: <span id="loja-pontos">0</span> 💖</h3>
+        </div>
+        <div class="search-container"> <input type="text" id="input-busca" placeholder="🔍 Procurar um mimo..."
+                onkeyup="filtrarLoja()"> </div>
+        <div class="loja-container">
+            <h2>Loja de Presentes</h2>
+            <div id="lista-presentes"></div>
+        </div>
+        <section class="secao-agenda">
+            <h2>📅 Meus Agendamentos</h2>
+            <div id="agenda-resgates" class="agenda-container"></div>
+        </section>
+    </div> 
+<!-- EMAILJS PRIMEIRO -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<!-- DEPOIS SEU SCRIPT -->
+<script type="module" src="shop.js"></script>
+</body>
+
+</html>
