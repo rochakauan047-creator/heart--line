@@ -4,15 +4,17 @@ body {
   font-family: Arial;
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(#1e3c72, #ff4b5c);
-  color: white;
+background-image: 
+linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)),
+url('img/background1.png');
+
 }
 
 
 /* SIDEBAR (PC) */
 .sidebar {
   width: 220px;
-  background: #162447;
+  background-image: url(img/backgroundchat.png);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -26,6 +28,7 @@ body {
 }
 
 .sidebar a {
+  
   display: flex;
   font-weight: bold;  
   align-items: center;
@@ -67,7 +70,11 @@ button {
   border-radius: 10px;
   cursor: pointer;
 }
-
+h2{
+  font-family: Times, Times New Roman, serif;
+  font-weight: bold;
+  color: white;
+}
 /* NOTAS */
 .nota {
   background: white;
@@ -137,7 +144,7 @@ button {
     justify-content: space-around;
     align-items: center;
 
-    background: #162447;
+  background-image: url(img/backgroundchat.png);
     padding: 5px;
       box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
   border-top-left-radius: 15px;
@@ -199,8 +206,9 @@ button {
 }
 
 .nota {
-  background: white;
-  color: black;
+  background-image: url(img/backgroundchat.png);
+
+  color: rgb(255, 255, 255);
   padding: 10px;
   border-radius: 10px;
   margin-top: 10px;

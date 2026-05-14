@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <title>Informações do Usuário</title>
   <link rel="stylesheet" href="info.css">
 </head>
+
 <body>
 
   <div class="container">
@@ -15,27 +17,30 @@
     <p><strong>Pontos:</strong> <span id="pontos">0</span></p>
     <p><strong>Rank:</strong> <span id="rank">...</span></p>
     <button onclick="abrirRanks()">🏆 Ver Ranks</button>
-<button onclick="voltar()">🏠 Voltar para Home</button>
+    <button onclick="voltar()">🏠 Voltar para Home</button>
     <button onclick="logout()">Sair</button>
+    <div class="texto">
+      <div class="frase">"Hoje eu Te Amo ainda Mais que ontem e Menos do que Amanhã"</div>
+    </div>
   </div>
-
   <script type="module" src="info.js"></script>
   <div id="rankModal" class="modal">
-  <div class="modal-content">
-    <h2>🏆 Sistema de Ranks</h2>
+    <div class="modal-content">
+      <h2>🏆 Sistema de Ranks</h2>
 
-    <ul>
-      <li>50 - Iniciante</li>
-      <li>150 - Aprendiz</li>
-      <li>300 - Guerreiro</li>
-      <li>600 - Veterano</li>
-      <li>1000 - Elite</li>
-      <li>2000 - Lendário</li>
-      <li>∞ - Indelével </li>
-    </ul>
+      <ul>
+        <li>50 - Iniciante</li>
+        <li>150 - Aprendiz</li>
+        <li>300 - Guerreiro</li>
+        <li>600 - Veterano</li>
+        <li>1000 - Elite</li>
+        <li>2000 - Lendário</li>
+        <li>∞ - Indelével </li>
+      </ul>
 
-    <button onclick="fecharRanks()">Fechar</button>
+      <button onclick="fecharRanks()">Fechar</button>
+    </div>
   </div>
-</div>
 </body>
+
 </html>
