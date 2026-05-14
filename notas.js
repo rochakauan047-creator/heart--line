@@ -1,52 +1,199 @@
-// carregar notas ao abrir
-window.onload = carregarNotas;
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 
-function adicionarNota() {
-  const input = document.getElementById("textoNota");
-  const texto = input.value;
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  orderBy,
+  serverTimestamp,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+// ================= FIREBASE =================
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBGWMOLsTvJf5kAMaP8uRWwmDn4Lb1dzNw",
+  authDomain: "line-heart-bnc.firebaseapp.com",
+  projectId: "line-heart-bnc"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+// ================= USUÁRIO =================
+
+let usuarioAtual = null;
+
+onAuthStateChanged(auth, (user) => {
+
+  if (user) {
+
+    usuarioAtual = user;
+
+    carregarNotas();
+
+  } else {
+
+    window.location.href = "login.html";
+
+  }
+});
+
+// ================= ADICIONAR NOTA =================
+
+window.adicionarNota = async function () {
+
+  const input =
+    document.getElementById("textoNota");
+
+  if (!input) return;
+
+  const texto =
+    input.value.trim();
 
   if (!texto) return;
 
-  let notas = JSON.parse(localStorage.getItem("notas")) || [];
+  try {
 
-  notas.push({
-    texto: texto,
-    data: new Date().toLocaleDateString()
-  });
+    // pega dados do usuário
+    const userDoc =
+      await getDoc(
+        doc(db, "users", usuarioAtual.uid)
+      );
 
-  localStorage.setItem("notas", JSON.stringify(notas));
+    let nomeUsuario = "Usuário";
 
-  input.value = "";
-  carregarNotas();
-}
+    if (userDoc.exists()) {
 
-function carregarNotas() {
-  const container = document.getElementById("listaNotas");
+      nomeUsuario =
+        userDoc.data().nome;
+
+    }
+
+    // salva nota
+    await addDoc(
+      collection(db, "notas"),
+      {
+
+        texto: texto,
+
+        uid: usuarioAtual.uid,
+
+        nome: nomeUsuario,
+
+        data: serverTimestamp()
+
+      }
+    );
+
+    input.value = "";
+
+    carregarNotas();
+
+  } catch (erro) {
+
+    console.log(erro);
+
+    alert("Erro ao salvar nota");
+
+  }
+};
+
+// ================= CARREGAR NOTAS =================
+
+async function carregarNotas() {
+
+  const container =
+    document.getElementById("listaNotas");
+
+  if (!container) return;
+
   container.innerHTML = "";
 
-  let notas = JSON.parse(localStorage.getItem("notas")) || [];
+  try {
 
-  notas.forEach((n, i) => {
-    container.innerHTML += `
-      <div class="nota">
-        <p>${n.texto}</p>
-        <small>${n.data}</small>
-        <br>
-        <button onclick="apagarNota(${i})">🗑</button>
-      </div>
-    `;
-  });
+    const q =
+      query(
+        collection(db, "notas"),
+        orderBy("data", "desc")
+      );
+
+    const snapshot =
+      await getDocs(q);
+
+    snapshot.forEach((docSnap) => {
+
+      const nota =
+        docSnap.data();
+
+      const notaId =
+        docSnap.id;
+
+      container.innerHTML += `
+
+        <div class="nota">
+
+          <p>${nota.texto}</p>
+
+          <small>
+            ✍️ ${nota.nome || "Usuário"}
+          </small>
+
+          <br>
+
+          <button onclick="apagarNota('${notaId}')">
+            🗑 Apagar
+          </button>
+
+        </div>
+
+      `;
+    });
+
+  } catch (erro) {
+
+    console.log(erro);
+
+  }
 }
 
-function apagarNota(index) {
-  let notas = JSON.parse(localStorage.getItem("notas")) || [];
+// ================= APAGAR NOTA =================
 
-  notas.splice(index, 1);
+window.apagarNota = async function (id) {
 
-  localStorage.setItem("notas", JSON.stringify(notas));
-  carregarNotas();
-}
+  try {
 
-function voltar() {
-  window.history.back();
-}
+    await deleteDoc(
+      doc(db, "notas", id)
+    );
+
+    carregarNotas();
+
+  } catch (erro) {
+
+    console.log(erro);
+
+    alert("Erro ao apagar");
+
+  }
+};
+
+// ================= VOLTAR =================
+
+window.voltar = function () {
+
+  window.location.href =
+    "home.html";
+};

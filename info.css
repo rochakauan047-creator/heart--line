@@ -1,31 +1,57 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: linear-gradient(to bottom, #1e3c72, #ff4b5c);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: white;
-}
+background-image: 
+linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)),
+url('img/background1.png');
+color: white;
 
+    font-size: xx-large;
+}
+p{
+    font-size: xx-large;
+}
 .container {
-  background: #162447;
+  font-weight: bold;
+  font-size: xx-large;
+ background-image: 
+linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)),
+url('img/backgroundchat.png');
+
   font-size: x-large;
   padding: 30px;
+  gap: 30px;
   border-radius: 20px;
   text-align: center;
-  width: 680px;
-  height: 700px;
+  width: 780px;
+  height: 1000px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
+.frase{
+  justify-content: baseline ;
+  font-size: xx-large;
+  font-weight: bold;
+  color: #d4d4d4;
+  margin-bottom: 20px;
+  cursor: pointer;
+  
+}
+.frase :hover{
+  color: #ff5c74;
+   scale: 1.5; 
+
+}
 h1 {
   margin-bottom: 20px;
 }
 
 button {
-  font-size: x-large;
+  font-size: xx-large;
   font-weight: bold;
   margin-top: 10px;
   padding: 10px;
