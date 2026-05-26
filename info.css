@@ -161,3 +161,7 @@ button:hover {
     padding: 15px;
   }
 }
+/* espaço pra sidebar não cobrir conteúdo */
+.main {
+  padding-bottom: 100px;
+}

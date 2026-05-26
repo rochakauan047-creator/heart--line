@@ -27,3 +27,7 @@ button {
   color: white;
   cursor: pointer;
 }
+/* espaço pra sidebar não cobrir conteúdo */
+.main {
+  padding-bottom: 100px;
+}

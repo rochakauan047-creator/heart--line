@@ -2,113 +2,186 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
   <title>Nosso Amor 💖</title>
 
-<script type="module" src="carta.js"></script>
   <link rel="stylesheet" href="home.css">
+
+  <script type="module" src="script.js"></script>
+
+  <script type="module" src="carta.js"></script>
+
 </head>
 
 <body>
 
+  <!-- UPDATE CARD -->
+
+
+
+  <!-- SIDEBAR -->
+
   <div class="sidebar">
+
     <h2>Nós...</h2>
-    <a href="galery.html">📸 <span>Galeria</span></a>
-    <a href="notas.html">💬 <span>Notas</span></a>
-    <a href="shop.html">🛒 <span>Love-Shop</span></a>
-    <a href="info.html">ℹ️ <span>Informações</span></a>
+
+    <a href="galery.html">
+      📸 <span>Galeria</span>
+    </a>
+
+    <a href="notas.html">
+      💬 <span>Notas</span>
+    </a>
+
+    <a href="shop.html">
+      🛒 <span>Love-Shop</span>
+    </a>
+
+    <a href="info.html">
+      ℹ️ <span>Informações</span>
+    </a>
+
   </div>
+
+  <!-- MAIN -->
 
   <div class="main">
+  <div id="updateCard"
+       class="update-overlay">
 
-    <div class="header">
-      <div class="search">
-        <input type="text" placeholder="Pesquisar...">
-        <button>🔍</button>
-      </div>
-    </div>
-<!-- UPDATE MODAL -->
-<div class="update-modal" id="updateCard">
+    <div class="update-box">
 
-  <div class="update-box">
-
-    <h2>🚀 Line-Heart 1.8</h2>
-
-    <p>
-      O Line-Heart está de volta e com um tapa no visual 💖
-    </p>
-
-    <div class="checklist">
-
-      <p>✅ Pontos somáveis</p>
-
-      <p>✅ Novos ranks</p>
-
-      <p>✅ Notas compartilhadas</p>
-
-      <p>✅ Resgate de código</p>
-
-      <p>✅ Galeria atualizada</p>
-
-    </div>
-
-    <div class="update-final">
+      <h1>💖 Line-Heart 1.8</h1>
 
       <p>
-        Pela demora daremos um código de resgate 🎁
+        O Line-Heart está de volta
+        e com um tapa no visual ✨
       </p>
 
-      <h3>SORRY</h3>
+      <div class="checklist">
+        <p>✅ Mais de 200 frase</p>
+        <p>✅ Ranks organizados e Indelevel adicionado</p>
+        <p>✅ Pontos somáveis</p>
 
-      <span>
-        Resgate agora 💖
-      </span>
+        <p>✅ Novos ranks</p>
+
+        <p>✅ Notas compartilhadas</p>
+
+        <p>✅ Resgate de código</p>
+
+        <p>✅ Galeria atualizada</p>
+
+      </div>
+
+      <p class="codigo-update">
+
+        Pela demora demos
+        um código de resgate:
+
+        <b>SORRY</b> 🎁
+
+      </p>
+
+      <button onclick="fecharUpdate()">
+        Fechar
+      </button>
 
     </div>
 
-    <button onclick="fecharUpdate()">
-      Fechar
-    </button>
+  </div>
+    <!-- HEADER -->
+
+    <div class="header">
+
+      <div class="search">
+
+        <input type="text"
+               placeholder="Pesquisar...">
+
+        <button>🔍</button>
+
+      </div>
+
+    </div>
+
+    <!-- FRASE -->
+
+    <div class="card">
+
+      <h2 id="frase">
+        💖
+      </h2>
+
+    </div>
+
+    <!-- CARTA -->
+
+    <div class="carta"
+         onclick="abrirCarta()">
+
+      <div class="frente">
+
+        💌 Abrir Carta
+
+      </div>
+
+      <div class="dentro">
+
+        <p id="mensagemCarta"></p>
+
+        <span id="pontosCarta"></span>
+
+      </div>
+
+    </div>
+
+    <!-- RESGATAR CÓDIGO -->
+
+    <div class="codigo-card">
+
+      <h2>🎁 Resgatar Código</h2>
+
+      <input
+        type="text"
+        id="codigoInput"
+        placeholder="Digite o código..."
+      >
+
+      <button onclick="resgatarCodigo()">
+
+        Resgatar
+
+      </button>
+
+      <p id="msgCodigo"></p>
+
+    </div>
+
+    <!-- CONTADOR -->
+
+    <div class="contador-container">
+
+      <h2>
+        Tempo desde 25/03/2026
+      </h2>
+
+      <div id="display-contador">
+
+        Carregando tempo...
+
+      </div>
+
+    </div>
 
   </div>
 
-</div>
-    <!-- CARTA -->
-    <div class="carta" onclick="abrirCarta()">
-      <div class="frente">💌 Abrir Carta</div>
-      <div class="dentro">
-        <p id="mensagemCarta"></p>
-        <span id="pontosCarta"></span>
-      </div>
-    </div>
-<!-- RESGATAR CÓDIGO -->
-<div class="codigo-card">
-
-  <h2>🎁 Resgatar Código</h2>
-
-  <input
-    type="text"
-    id="codigoInput"
-    placeholder="Digite o código..."
-  >
-
-  <button onclick="resgatarCodigo()">
-    Resgatar
-  </button>
-
-  <p id="msgCodigo"></p>
-
-</div>
-<div class="contador-container">
-    <h2>Nosso Tempo desde 25/03/2026</h2>
-    <div id="display-contador"  style="font-family: Times, Times New Roman, serif; font-size: 1.5rem; font-weight: bolder; color: #ffffff;    background: #e43f5a; 
-    border-radius: 15px;
-    padding: 5px 10px;">
-        Carregando tempo...
-    </div>
-</div>
   <script src="contador.js"></script>
 
 </body>
+
 </html>

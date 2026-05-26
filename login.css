@@ -82,3 +82,7 @@ button:hover {
     transform: translateY(0);
   }
 }
+/* espaço pra sidebar não cobrir conteúdo */
+.main {
+  padding-bottom: 100px;
+}

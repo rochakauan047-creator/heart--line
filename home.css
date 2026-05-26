@@ -267,10 +267,12 @@ h1 {
     padding: 5px 10px;
 }
 .contador-container {
+    color: white;
+    font-weight: bold;
             text-align: center;
           background: #162447;
             padding: 2rem;
-            height: 200px;
+            height: 150px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             font-family: Verdana, Geneva, Tahoma, sans-serif
@@ -549,4 +551,104 @@ h1 {
     transform: translateY(0);
 
   }
+}
+.update-card {
+
+  background: #162447;
+
+  padding: 25px;
+
+  border-radius: 20px;
+
+  color: white;
+
+  text-align: center;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
+  animation: aparecer 0.5s ease;
+
+}
+
+.update-card h2 {
+
+  color: #ff4b5c;
+
+  margin-bottom: 15px;
+
+}
+
+.checklist {
+
+  margin-top: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+}
+
+.update-final {
+
+  margin-top: 20px;
+
+  padding: 15px;
+
+  background: rgba(255,255,255,0.08);
+
+  border-radius: 15px;
+
+}
+
+.update-final h3 {
+
+  font-size: 30px;
+
+  color: #ff4b5c;
+
+  margin: 10px 0;
+
+}
+
+.update-card button {
+
+  margin-top: 20px;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #e43f5a;
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+}
+
+@keyframes aparecer {
+
+  from {
+
+    opacity: 0;
+    transform: translateY(20px);
+
+  }
+
+  to {
+
+    opacity: 1;
+    transform: translateY(0);
+
+  }
+}
+/* espaço pra sidebar não cobrir conteúdo */
+.main {
+  padding-bottom: 100px;
 }

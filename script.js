@@ -3,7 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/fireba
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
 
 import {
@@ -71,7 +72,8 @@ async function cadastrar() {
         nome,
         email,
         pontos: 0,
-        pontosTotal: 0
+        pontosTotal: 0,
+        viuUpdate18: false
       }
     );
 
@@ -128,11 +130,7 @@ document
 
 // ================= USUÁRIO =================
 
-async function carregarUsuario() {
-
-  const user = auth.currentUser;
-
-  if (!user) return;
+async function carregarUsuario(user) {
 
   const snap =
     await getDoc(doc(db, "users", user.uid));
@@ -156,56 +154,6 @@ async function carregarUsuario() {
 }
 
 // ================= GALERIA =================
-
-async function upload() {
-
-  const file =
-    document.getElementById("fileInput")?.files[0];
-
-  const nome =
-    document.getElementById("nomeInput")?.value;
-
-  if (!file || !nome) {
-    alert("Preenche tudo");
-    return;
-  }
-
-  try {
-
-    const fileName =
-      Date.now() + "_" + file.name;
-
-    const fileRef =
-      ref(storage, "midias/" + fileName);
-
-    await uploadBytes(fileRef, file);
-
-    const url =
-      await getDownloadURL(fileRef);
-
-    await addDoc(collection(db, "Galeria"), {
-      nome,
-      url,
-      tipo: file.type.startsWith("image")
-        ? "image"
-        : "video",
-      data: new Date()
-    });
-
-    alert("Enviado 🔥");
-
-    location.reload();
-
-  } catch (e) {
-
-    console.log(e);
-
-    alert("Erro ao enviar");
-
-  }
-}
-
-// ================= CARREGAR GALERIA =================
 
 async function carregarGaleria() {
 
@@ -237,18 +185,88 @@ async function carregarGaleria() {
   });
 }
 
-// ================= INIT =================
+// ================= UPDATE CARD =================
 
-window.onload = () => {
+async function mostrarUpdate(user) {
 
-  if (typeof atualizarFrase === "function") {
-    atualizarFrase();
+  const card =
+    document.getElementById("updateCard");
+
+  if (!card) return;
+
+  try {
+
+    const snap =
+      await getDoc(
+        doc(db, "users", user.uid)
+      );
+
+    if (!snap.exists()) return;
+
+    const dados = snap.data();
+
+    if (!dados.viuUpdate18) {
+
+      card.style.display = "flex";
+
+    } else {
+
+      card.style.display = "none";
+
+    }
+
+  } catch (erro) {
+
+    console.log(erro);
+
+  }
+}
+
+// ================= FECHAR UPDATE =================
+
+window.fecharUpdate = async function () {
+
+  const user =
+    auth.currentUser;
+
+  if (!user) return;
+
+  try {
+
+    await setDoc(
+      doc(db, "users", user.uid),
+      {
+        viuUpdate18: true
+      },
+      { merge: true }
+    );
+
+    document
+      .getElementById("updateCard")
+      .style.display = "none";
+
+  } catch (erro) {
+
+    console.log(erro);
+
+  }
+};
+
+// ================= FIREBASE READY =================
+
+onAuthStateChanged(auth, async (user) => {
+
+  if (user) {
+
+    carregarUsuario(user);
+
+    carregarGaleria();
+
+    mostrarUpdate(user);
+
   }
 
-  carregarUsuario();
-
-  carregarGaleria();
-};
+});
 
 // ================= MSG =================
 
