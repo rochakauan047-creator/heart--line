@@ -1,35 +1,61 @@
 body {
+
   margin: 0;
-  font-family: Arial;
+
+  min-height: 100vh;
+
+  font-family: Arial, sans-serif;
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
-  height: 100vh;
-background-image: 
-linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)),
-url('img/background1.png');
-color: white;
 
-    font-size: xx-large;
+  padding: 20px;
+
+  background-image:
+  linear-gradient(
+    to top,
+    rgba(0,0,0,0.8),
+    rgba(0,0,0,0)
+  ),
+  url('img/background1.png');
+
+  background-size: cover;
+
+  background-position: center;
+
+  color: white;
+
 }
-p{
-    font-size: xx-large;
-}
+
 .container {
-  font-weight: bold;
-  font-size: xx-large;
- background-image: 
-linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)),
-url('img/backgroundchat.png');
 
-  font-size: x-large;
+  width: 100%;
+
+  max-width: 550px;
+
   padding: 30px;
-  gap: 30px;
+
   border-radius: 20px;
+
   text-align: center;
-  width: 780px;
-  height: 1000px;
+ font-size: 20px;
+  background-image:
+  linear-gradient(
+    to top,
+    rgba(0,0,0,0.8),
+    rgba(0,0,0,0)
+  ),
+  url('img/backgroundchat.png');
+
+  background-size: cover;
+
+  background-position: center;
+
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
 }
 
 .frase{

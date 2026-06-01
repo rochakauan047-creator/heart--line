@@ -1,84 +1,195 @@
+/* BODY */
+
 body {
   margin: 0;
-  font-family: Arial;
-  background: linear-gradient(to bottom, #1e3c72, #ff4b5c);
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+
+  background-image: url('img/background2.png');
+  background-repeat: no-repeat; /* impede duplicação */
+  background-size: cover; /* cobre a tela inteira */
+  background-position: center; /* centraliza */
+
   display: flex;
-  
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  padding: 20px;
 }
 
+/* CONTAINER LOGIN */
 
-/* CONTAINER */
 .login-container {
-  background: #162447;
-  padding: 30px;
-  border-radius: 20px;
+
+  background: linear-gradient(
+    to left,
+         rgb(228, 63, 90),
+   rgb(22, 36, 71)
+  );
+
+  width: 100%;
+
+  max-width: 500px;
+
+  padding: 40px;
+
+  border-radius: 25px;
+  
   display: flex;
+  
   flex-direction: column;
-  gap: 35px;
-  width: 750px;
-  height: 1050px;
-  /* ANIMAÇÃO */
-  opacity: 0;
+
+  align-items: center;
+  gap: 20px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,8.8);
+
+
   transform: translateY(50px);
+
   animation: subir 0.8s ease forwards;
+
 }
 
 /* LOGO */
+
 .logo {
+
   text-align: center;
-  
+
 }
-/* LOGOL */
 
 .logol {
+
   display: flex;
+
   justify-content: center;
-  margin-bottom: 15px;
+
 }
 
 .logol img {
-  width: 320px;
-  height: 320px;
+
+  width: 180px;
+
+  height: 180px;
+
   border-radius: 30%;
-  box-shadow: 0 20px 10px rgb(145, 47, 96);
+
+  object-fit: cover;
+
+  box-shadow:
+    0 10px 25px rgba(228,63,90,0.5);
+
 }
 
 /* INPUTS */
+
 input {
-  text-align: center;
-  height: 50px;
-  padding: 10px;
-  border-radius: 10px;
+
+  width: 100%;
+
+  height: 55px;
+
+  padding: 12px;
+
   border: none;
- font-size: xx-large;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  font-size: 18px;
+
+  outline: none;
+
 }
 
 /* BOTÕES */
+
 button {
-  font-family: 'Times New Roman', Times, serif;
+
   width: 100%;
-    height: 60px;
+
+  height: 55px;
+
   border: none;
-  border-radius: 10px;
+
+  border-radius: 12px;
+
   background: #e43f5a;
+
   color: white;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
   cursor: pointer;
+
   transition: 0.3s;
-  font-size: xx-large;
-  justify-content:  center; 
+
 }
 
 button:hover {
-  transform: scale(1.05);
+
+  transform: translateY(-2px);
+
+  background: #ff5871;
+
+}
+
+/* TEXTO */
+
+h1,
+h2,
+p {
+
+  color: white;
+
+  text-align: center;
+
 }
 
 /* ANIMAÇÃO */
+
 @keyframes subir {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(50px);
+
   }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .login-container {
+
+    max-width: 95%;
+
+    padding: 25px;
+
+  }
+
+  .logol img {
+
+    width: 140px;
+
+    height: 140px;
+
+  }
+
 }

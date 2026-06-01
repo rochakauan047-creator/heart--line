@@ -28,7 +28,6 @@ url('img/background1.png');
 }
 
 .sidebar a {
-  
   display: flex;
   font-weight: bold;  
   align-items: center;
@@ -43,6 +42,7 @@ url('img/background1.png');
 
 .sidebar a:hover {
   background: #ff5c74;
+    scale: 1.2;
 }
 /* MAIN */
 .main {

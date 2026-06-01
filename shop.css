@@ -45,6 +45,7 @@ h2{
 
 .sidebar a:hover {
   background: #ff5c74;
+      scale: 1.2;
 }
 
 /* MAIN */

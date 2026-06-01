@@ -378,10 +378,11 @@ const codigos = {
   "143": 143,
   "AMOR": 10,
   "HEARTLINE": 50,
-  
-
+  "2020": 55,
+  "LOVE": 20,
+  "K&J": 75,
   // 🔥 rank máximo
-  "BLOFMBLO": 2500
+  "BLOODOFMYBLOOD": 2500
 
 };
 
