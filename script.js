@@ -107,7 +107,8 @@ async function login() {
       senha
     );
 
-    window.location.href = "home.html";
+    // Redireciona para a nova página
+    window.location.href = "fim.html";
 
   } catch (e) {
 
@@ -115,7 +116,6 @@ async function login() {
 
   }
 }
-
 // ================= BOTÕES =================
 
 document
